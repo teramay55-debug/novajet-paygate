@@ -1,5 +1,13 @@
-// ========== NOVAJET AIRWAYS - DIRECT USDC PAYMENT ==========
+// ========== NOVAJET AIRWAYS - MOONPAY PAYMENT GATEWAY ==========
+const https = require('https');
+
+// YOUR CONFIGURATION
 const MY_USDC_POLYGON_WALLET = "0xeABA510c0F7286B894A7C9229F41dC1ee0e8038E";
+const YOUR_SITE_URL = "https://novajet-airway.netlify.app";
+
+// MoonPay API Key (Public key - safe to use in frontend)
+// This key is provided by PayGate.to for MoonPay integration
+const MOONPAY_API_KEY = "pk_live_uQG4BJC4w3cxnqpcSqAfohdBFDTsY6E";
 
 function generateOrderId() {
     const timestamp = Date.now();
@@ -32,10 +40,27 @@ exports.handler = async (event) => {
         const { customerName, customerEmail, amount } = JSON.parse(event.body);
         const orderId = generateOrderId();
 
-        // Store order info (optional - for tracking)
-        console.log('Order created:', { orderId, customerName, customerEmail, amount });
+        // Build the MoonPay checkout URL with all required parameters
+        // This will take customers to MoonPay's secure payment page
+        const moonPayUrl = `https://buy.moonpay.com/v2/buy?` + new URLSearchParams({
+            apiKey: MOONPAY_API_KEY,
+            baseCurrencyAmount: amount.toFixed(2),
+            baseCurrencyCode: 'usd',
+            currencyCode: 'usdc_polygon',
+            walletAddress: MY_USDC_POLYGON_WALLET,
+            walletAddressTag: customerName,
+            email: customerEmail,
+            externalTransactionId: orderId,
+            redirectUrl: `${YOUR_SITE_URL}/success.html?order=${orderId}`,
+            colorCode: '#1e4a6e',
+            theme: 'dark'
+        }).toString();
 
-        // Return manual payment instructions with wallet address
+        console.log('✅ Payment created for:', customerEmail);
+        console.log('💰 Amount:', amount, 'USD');
+        console.log('📦 Order ID:', orderId);
+        console.log('🔗 MoonPay URL:', moonPayUrl);
+
         return {
             statusCode: 200,
             headers: {
@@ -44,27 +69,23 @@ exports.handler = async (event) => {
             },
             body: JSON.stringify({
                 success: true,
-                manual_wallet: MY_USDC_POLYGON_WALLET,
+                payment_url: moonPayUrl,
                 order_id: orderId,
-                amount: amount,
-                customer_name: customerName,
-                customer_email: customerEmail
+                amount: amount
             })
         };
 
     } catch (error) {
-        console.error('Error:', error.message);
+        console.error('❌ Error:', error.message);
         return {
-            statusCode: 200,
+            statusCode: 500,
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*'
             },
             body: JSON.stringify({
-                success: true,
-                manual_wallet: MY_USDC_POLYGON_WALLET,
-                order_id: generateOrderId(),
-                fallback: true
+                success: false,
+                error: error.message
             })
         };
     }
