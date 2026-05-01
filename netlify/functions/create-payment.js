@@ -1,155 +1,173 @@
-// ========== PAYGATE.TO NETLIFY FUNCTION ==========
-// Your USDC Polygon wallet address
-const MY_USDC_POLYGON_WALLET_ADDRESS = "0xeABA510c0F7286B894A7C9229F41dC1ee0e8038E";
-const MY_PROVIDER = "moonpay";
+// ========== PAYGATE.TO INTEGRATION - FRONTEND ==========
+const API_URL = '/.netlify/functions/create-payment';
 
-// PayGate.to API endpoints
-const PAYGATE_WALLET_API = "https://api.paygate.to/control/wallet.php";
-const PAYGATE_CHECKOUT_BASE = "https://checkout.paygate.to/process-payment.php";
+// DOM Elements
+const form = document.getElementById('paymentForm');
+const payBtn = document.getElementById('payNowBtn');
+const btnText = document.querySelector('.btn-text');
+const spinner = document.querySelector('.spinner');
 
-// Helper: Generate unique order ID
-function generateOrderId() {
-    const timestamp = Date.now();
-    const random = Math.random().toString(36).substring(2, 10).toUpperCase();
-    return `ORD-${timestamp}-${random}`;
+// Form fields
+const nameInput = document.getElementById('customerName');
+const emailInput = document.getElementById('customerEmail');
+const amountInput = document.getElementById('amount');
+
+// Helper: Show loading state
+function setLoading(isLoading) {
+    if (isLoading) {
+        payBtn.disabled = true;
+        btnText.textContent = 'Creating payment...';
+        spinner.classList.remove('hidden');
+    } else {
+        payBtn.disabled = false;
+        btnText.textContent = 'Pay Now';
+        spinner.classList.add('hidden');
+    }
 }
 
-// Main handler
-exports.handler = async (event) => {
-    // Handle CORS preflight
-    if (event.httpMethod === 'OPTIONS') {
-        return {
-            statusCode: 204,
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Headers': 'Content-Type',
-                'Access-Control-Allow-Methods': 'POST, OPTIONS'
-            }
-        };
+// Helper: Show error modal
+function showError(message) {
+    const modal = document.getElementById('errorModal');
+    const errorMessage = document.getElementById('errorMessage');
+    errorMessage.textContent = message;
+    modal.classList.remove('hidden');
+}
+
+// Helper: Close modal
+window.closeModal = function() {
+    const modal = document.getElementById('errorModal');
+    modal.classList.add('hidden');
+};
+
+// Show manual payment instructions (fallback)
+function showManualInstructions(walletAddress, amount, orderId) {
+    const modalDiv = document.createElement('div');
+    modalDiv.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); z-index:7000; display:flex; align-items:center; justify-content:center;';
+    modalDiv.innerHTML = `
+        <div style="background:white; border-radius:48px; max-width:500px; width:90%; padding:32px; text-align:center;">
+            <div style="font-size:3rem;">💎</div>
+            <h2 style="margin:16px 0;">Pay with USDC (Polygon)</h2>
+            <p>Send exactly <strong>${amount} USDC</strong> to:</p>
+            <div style="background:#1a1a2e; color:#00d4ff; border-radius:20px; padding:20px; margin:20px 0; word-break:break-all; font-family:monospace; font-size:0.8rem;">
+                ${walletAddress}
+            </div>
+            <div style="background:#f0f6fa; border-radius:20px; padding:15px; margin:15px 0; text-align:left;">
+                <div><strong>📋 Order ID:</strong> ${orderId}</div>
+                <div><strong>👤 Customer:</strong> ${nameInput.value}</div>
+                <div><strong>📧 Email:</strong> ${emailInput.value}</div>
+            </div>
+            <button id="copyAddressBtn" style="background:#1e4a6e; color:white; border:none; padding:12px 24px; border-radius:40px; font-weight:600; cursor:pointer; margin-right:10px;">📋 Copy Address</button>
+            <button id="closeManualBtn" style="background:#eef3fc; color:#666; border:none; padding:12px 24px; border-radius:40px; font-weight:600; cursor:pointer;">Close</button>
+        </div>
+    `;
+    document.body.appendChild(modalDiv);
+    
+    document.getElementById('copyAddressBtn').onclick = () => {
+        navigator.clipboard.writeText(walletAddress);
+        alert('Wallet address copied!');
+    };
+    document.getElementById('closeManualBtn').onclick = () => modalDiv.remove();
+}
+
+// Validate form
+function validateForm() {
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    const amount = parseFloat(amountInput.value);
+    
+    if (!name) {
+        showError('Please enter your full name');
+        return false;
     }
     
-    // Only allow POST requests
-    if (event.httpMethod !== 'POST') {
-        return {
-            statusCode: 405,
-            headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-            body: JSON.stringify({ success: false, error: 'Method not allowed' })
-        };
+    if (!email) {
+        showError('Please enter your email address');
+        return false;
     }
+    
+    if (!email.includes('@') || !email.includes('.')) {
+        showError('Please enter a valid email address');
+        return false;
+    }
+    
+    if (isNaN(amount) || amount < 1) {
+        showError('Please enter a valid amount (minimum $1)');
+        return false;
+    }
+    
+    return true;
+}
+
+// Submit payment
+async function handleSubmit(e) {
+    e.preventDefault();
+    
+    if (!validateForm()) {
+        return;
+    }
+    
+    setLoading(true);
+    
+    const payload = {
+        customerName: nameInput.value.trim(),
+        customerEmail: emailInput.value.trim(),
+        amount: parseFloat(amountInput.value)
+    };
     
     try {
-        // Parse request body
-        const { customerName, customerEmail, amount } = JSON.parse(event.body);
-        
-        // Get the domain from the request
-        const domain = event.headers.origin || event.headers.referer || 'https://your-site.netlify.app';
-        
-        // Validate required fields
-        if (!customerName || !customerEmail || !amount) {
-            return {
-                statusCode: 400,
-                headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-                body: JSON.stringify({ 
-                    success: false, 
-                    error: 'Missing required fields: customerName, customerEmail, amount' 
-                })
-            };
-        }
-        
-        // Validate amount
-        if (isNaN(amount) || amount <= 0) {
-            return {
-                statusCode: 400,
-                headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-                body: JSON.stringify({ success: false, error: 'Invalid amount' })
-            };
-        }
-        
-        // Generate unique order ID
-        const orderId = generateOrderId();
-        
-        // Create callback URL for this order
-        const callbackUrl = `${domain}/success.html?order=${orderId}`;
-        
-        console.log('Creating PayGate.to wallet for order:', {
-            orderId,
-            amount,
-            customerEmail,
-            callbackUrl
-        });
-        
-        // Step 1: Call PayGate.to API to create temporary wallet
-        const walletParams = new URLSearchParams({
-            address: MY_USDC_POLYGON_WALLET_ADDRESS,
-            callback: callbackUrl
-        });
-        
-        const walletApiUrl = `${PAYGATE_WALLET_API}?${walletParams.toString()}`;
-        
-        const walletResponse = await fetch(walletApiUrl, {
-            method: 'GET',
+        const response = await fetch(API_URL, {
+            method: 'POST',
             headers: {
-                'Accept': 'application/json'
-            }
-        });
-        
-        if (!walletResponse.ok) {
-            throw new Error(`PayGate.to API error: ${walletResponse.status}`);
-        }
-        
-        const walletData = await walletResponse.json();
-        
-        console.log('PayGate.to wallet response:', walletData);
-        
-        // Extract address_in from response
-        const addressIn = walletData.address_in || walletData.polygon_address_in || walletData.address;
-        
-        if (!addressIn) {
-            throw new Error('Failed to get address_in from PayGate.to API');
-        }
-        
-        // Step 2: Build payment URL
-        const paymentParams = new URLSearchParams({
-            address: addressIn,
-            amount: amount.toFixed(2),
-            provider: MY_PROVIDER,
-            email: customerEmail,
-            currency: 'USD'
-        });
-        
-        const paymentUrl = `${PAYGATE_CHECKOUT_BASE}?${paymentParams.toString()}`;
-        
-        console.log('Payment URL created:', paymentUrl);
-        
-        // Return success response
-        return {
-            statusCode: 200,
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                success: true,
-                payment_url: paymentUrl,
-                order_id: orderId,
-                address_in: addressIn,
-                amount: amount
-            })
-        };
+            body: JSON.stringify(payload)
+        });
+        
+        const data = await response.json();
+        
+        if (data.success && data.payment_url) {
+            // Store order info in session for success page
+            sessionStorage.setItem('lastOrderId', data.order_id);
+            sessionStorage.setItem('lastAmount', payload.amount);
+            sessionStorage.setItem('lastCustomerName', payload.customerName);
+            sessionStorage.setItem('lastCustomerEmail', payload.customerEmail);
+            
+            // Redirect to PayGate.to checkout
+            window.location.href = data.payment_url;
+        } else if (data.success && data.manual_wallet) {
+            // Fallback: Show manual payment instructions
+            setLoading(false);
+            showManualInstructions(data.manual_wallet, payload.amount, data.order_id);
+        } else {
+            throw new Error(data.error || 'Invalid response from server');
+        }
         
     } catch (error) {
-        console.error('Payment creation error:', error);
-        
-        return {
-            statusCode: 500,
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
-            },
-            body: JSON.stringify({
-                success: false,
-                error: error.message || 'Internal server error'
-            })
-        };
+        console.error('Payment error:', error);
+        showError(error.message || 'Unable to create payment. Please try again.');
+        setLoading(false);
     }
-};
+}
+
+// Event listeners
+form.addEventListener('submit', handleSubmit);
+
+// Restore form values from session if returning from payment
+window.addEventListener('load', () => {
+    const savedName = sessionStorage.getItem('lastCustomerName');
+    const savedEmail = sessionStorage.getItem('lastCustomerEmail');
+    const savedAmount = sessionStorage.getItem('lastAmount');
+    
+    if (savedName) nameInput.value = savedName;
+    if (savedEmail) emailInput.value = savedEmail;
+    if (savedAmount) amountInput.value = savedAmount;
+    
+    setTimeout(() => {
+        sessionStorage.removeItem('lastCustomerName');
+        sessionStorage.removeItem('lastCustomerEmail');
+        sessionStorage.removeItem('lastAmount');
+    }, 1000);
+});
+
+console.log('NovaJet payment form ready!');
+console.log('Site URL: https://novajet-airway.netlify.app');
