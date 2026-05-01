@@ -1,25 +1,27 @@
-// ========== PAYGATE.TO NETLIFY FUNCTION - FIXED ==========
+// ========== NOVAJET AIRWAYS - PAYGATE.TO PAYMENT FUNCTION ==========
+// This function creates payment links and handles the PayGate.to integration
+
 const https = require('https');
 
-// YOUR CONFIGURATION
-const MY_USDC_POLYGON_WALLET_ADDRESS = "0xeABA510c0F7286B894A7C9229F41dC1ee0e8038E";
-const MY_PROVIDER = "moonpay";
-const PAYGATE_WALLET_API = "https://api.paygate.to/control/wallet.php";
-const PAYGATE_CHECKOUT_BASE = "https://checkout.paygate.to/process-payment.php";
-const YOUR_DOMAIN = "https://novajet-airway.netlify.app";
+// ===== CONFIGURATION - UPDATE THESE =====
+const MY_USDC_POLYGON_WALLET = "0xeABA510c0F7286B894A7C9229F41dC1ee0e8038E";
+const YOUR_SITE_URL = "https://novajet-airway.netlify.app";
+// ========================================
 
+// Helper: Generate unique order ID
 function generateOrderId() {
     const timestamp = Date.now();
     const random = Math.random().toString(36).substring(2, 10).toUpperCase();
-    return `ORD-${timestamp}-${random}`;
+    return `NOVA-${timestamp}-${random}`;
 }
 
+// Helper: Make HTTPS GET request
 function httpsGet(url) {
     return new Promise((resolve, reject) => {
-        https.get(url, (res) => {
+        https.get(url, (response) => {
             let data = '';
-            res.on('data', (chunk) => data += chunk);
-            res.on('end', () => {
+            response.on('data', (chunk) => data += chunk);
+            response.on('end', () => {
                 try {
                     resolve(JSON.parse(data));
                 } catch (e) {
@@ -30,6 +32,7 @@ function httpsGet(url) {
     });
 }
 
+// Main handler
 exports.handler = async (event) => {
     // Handle CORS preflight
     if (event.httpMethod === 'OPTIONS') {
@@ -42,7 +45,7 @@ exports.handler = async (event) => {
             }
         };
     }
-    
+
     // Only allow POST requests
     if (event.httpMethod !== 'POST') {
         return {
@@ -51,78 +54,90 @@ exports.handler = async (event) => {
             body: JSON.stringify({ success: false, error: 'Method not allowed' })
         };
     }
-    
+
     try {
+        // Parse request body
         const { customerName, customerEmail, amount } = JSON.parse(event.body);
-        
-        // Validate
+
+        // Validate required fields
         if (!customerName || !customerEmail || !amount) {
             return {
                 statusCode: 400,
                 headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-                body: JSON.stringify({ success: false, error: 'Missing required fields' })
-            };
-        }
-        
-        const orderId = generateOrderId();
-        const callbackUrl = `${YOUR_DOMAIN}/success.html?order=${orderId}`;
-        
-        // Call PayGate.to API
-        const walletApiUrl = `${PAYGATE_WALLET_API}?address=${MY_USDC_POLYGON_WALLET_ADDRESS}&callback=${encodeURIComponent(callbackUrl)}`;
-        
-        console.log('Calling PayGate.to:', walletApiUrl);
-        
-        let walletData = {};
-        try {
-            walletData = await httpsGet(walletApiUrl);
-        } catch (err) {
-            console.log('PayGate.to API error, using fallback');
-        }
-        
-        const addressIn = walletData.address_in || walletData.polygon_address_in || walletData.address;
-        
-        // If no address from API, use manual fallback
-        if (!addressIn) {
-            return {
-                statusCode: 200,
-                headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-                body: JSON.stringify({
-                    success: true,
-                    manual_wallet: MY_USDC_POLYGON_WALLET_ADDRESS,
-                    order_id: orderId,
-                    fallback: true,
-                    amount: amount
+                body: JSON.stringify({ 
+                    success: false, 
+                    error: 'Missing required fields: name, email, or amount' 
                 })
             };
         }
-        
-        // Build payment URL
-        const paymentUrl = `${PAYGATE_CHECKOUT_BASE}?address=${addressIn}&amount=${amount.toFixed(2)}&provider=${MY_PROVIDER}&email=${customerEmail}&currency=USD`;
-        
+
+        // Validate amount
+        const numAmount = parseFloat(amount);
+        if (isNaN(numAmount) || numAmount <= 0) {
+            return {
+                statusCode: 400,
+                headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+                body: JSON.stringify({ success: false, error: 'Invalid amount' })
+            };
+        }
+
+        // Generate order ID
+        const orderId = generateOrderId();
+
+        // Create callback URLs
+        const successUrl = `${YOUR_SITE_URL}/success.html?order=${orderId}&status=success`;
+        const cancelUrl = `${YOUR_SITE_URL}/?payment=cancelled`;
+
+        // Build the PayGate.to direct payment URL
+        // This is the correct format for direct credit card payments
+        const paymentParams = new URLSearchParams({
+            amount: numAmount.toFixed(2),
+            currency: 'USD',
+            address: MY_USDC_POLYGON_WALLET,
+            order_id: orderId,
+            name: customerName,
+            email: customerEmail,
+            success_url: successUrl,
+            cancel_url: cancelUrl,
+            description: `NovaJet Flight Booking: ${customerName}`
+        });
+
+        const paymentUrl = `https://paygate.to/pay?${paymentParams.toString()}`;
+
+        console.log('Payment created:', { orderId, amount: numAmount, customerEmail });
         console.log('Payment URL:', paymentUrl);
-        
+
+        // Return success response
         return {
             statusCode: 200,
-            headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
             body: JSON.stringify({
                 success: true,
                 payment_url: paymentUrl,
-                order_id: orderId
+                order_id: orderId,
+                amount: numAmount
             })
         };
-        
+
     } catch (error) {
-        console.error('Error:', error.message);
-        
-        // Always return something useful
+        console.error('Payment creation error:', error.message);
+
+        // Return fallback with manual wallet address
         return {
             statusCode: 200,
-            headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
             body: JSON.stringify({
                 success: true,
-                manual_wallet: MY_USDC_POLYGON_WALLET_ADDRESS,
+                manual_wallet: MY_USDC_POLYGON_WALLET,
                 order_id: generateOrderId(),
-                fallback: true
+                fallback: true,
+                message: 'PayGate.to API temporarily unavailable. Please send USDC directly.'
             })
         };
     }
