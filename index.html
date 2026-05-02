@@ -3,95 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>NovaJet Airways | Pay with PayGate.to</title>
+    <title>NovaJet Airways | Washington ✈ Iceland ✈ Mexico</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <div class="logo-section">
-            <div class="logo-icon">✈️</div>
-            <h1>NovaJet Airways</h1>
-            <p class="tagline">Secure payments powered by PayGate.to</p>
+<div class="booking-container">
+    <!-- Header -->
+    <div class="airline-header">
+        <div class="logo-area">
+            <div class="logo-symbol">✈️</div>
+            <div class="logo-text">NovaJet Airways</div>
+            <div class="brand-tag">✦ global explorer ✦</div>
         </div>
+        <div class="translate-wrapper">
+            <div id="google_translate_element"></div>
+        </div>
+    </div>
 
-        <div class="payment-card">
-            <div class="card-header">
-                <h2>Complete Your Booking</h2>
-                <p>Enter your details to proceed with payment</p>
+    <!-- Flight Itinerary Card -->
+    <div class="card">
+        <div class="card-title">🗺️ Arctic to Tropics | Washington ✈ Iceland ✈ Mexico</div>
+        <div class="multi-city">
+            <!-- Leg 1: Washington to Iceland -->
+            <div class="leg">
+                <div class="route-main">
+                    <span>🇺🇸 Washington (SEA) → Reykjavík (KEF) 🇮🇸</span>
+                    <span class="date-badge">May 7 – May 11, 2026</span>
+                </div>
+                <div class="flight-time">
+                    <span>✈️ Depart: 2:30 PM (SEA) | Arrive: 5:10 AM+1 (KEF)</span>
+                    <span>⏱️ Flight time: 7h 40m</span>
+                </div>
+                <div class="connection-protection">✅ NovaProtect + Free itinerary changes</div>
             </div>
-
-            <form id="paymentForm">
-                <div class="form-group">
-                    <label for="customerName">Full Name</label>
-                    <input type="text" id="customerName" name="customerName" 
-                           placeholder="John Doe" required autocomplete="name">
+            <!-- Leg 2: Iceland to Mexico -->
+            <div class="leg">
+                <div class="route-main">
+                    <span>🇮🇸 Reykjavík (KEF) → Cancún (CUN) 🇲🇽</span>
+                    <span class="date-badge">May 11 – May 18, 2026</span>
                 </div>
-
-                <div class="form-group">
-                    <label for="customerEmail">Email Address</label>
-                    <input type="email" id="customerEmail" name="customerEmail" 
-                           placeholder="customer@example.com" required autocomplete="email">
+                <div class="flight-time">
+                    <span>✈️ Depart: 8:45 AM (KEF) → 11:20 AM YYZ → 4:25 PM CUN</span>
+                    <span>⏱️ Total journey: 12h 40m (1 stop)</span>
                 </div>
-
-                <div class="form-group">
-                    <label for="amount">Amount (USD)</label>
-                    <div class="amount-input-wrapper">
-                        <span class="currency">$</span>
-                        <input type="number" id="amount" name="amount" 
-                               value="1675.00" step="0.01" min="1" required>
-                    </div>
-                </div>
-
-                <div class="flight-info">
-                    <div class="flight-route">
-                        <span>🇺🇸 Seattle (SEA)</span>
-                        <span class="arrow">→</span>
-                        <span>🇮🇸 Reykjavík (KEF)</span>
-                        <span class="arrow">→</span>
-                        <span>🇲🇽 Cancún (CUN)</span>
-                    </div>
-                    <div class="flight-dates">May 13 – May 24, 2025</div>
-                </div>
-
-                <button type="submit" id="payNowBtn" class="pay-btn">
-                    <span class="btn-text">Pay Now</span>
-                    <span class="spinner hidden"></span>
-                </button>
-            </form>
-
-            <div class="payment-methods">
-                <span>💳 Visa</span>
-                <span>💳 Mastercard</span>
-                <span>💳 Amex</span>
-                <span>💳 Discover</span>
-                <span>🍏 Apple Pay</span>
-                <span>🤖 Google Pay</span>
-            </div>
-
-            <div class="secure-badge">
-                🔒 Secure payment • Settles as USDC (Polygon)
+                <div class="connection-protection">✅ GlacierGuard coverage + premium meal</div>
             </div>
         </div>
+        <div style="margin-top: 18px;">
+            <span id="viewFullItin" class="link-detail">📋 View complete flight schedule →</span>
+        </div>
+    </div>
 
-        <div class="settlement-info">
-            <div class="info-icon">💰</div>
-            <div class="info-text">
-                Payments settle to USDC (Polygon) wallet<br>
-                <span style="font-family:monospace; font-size:10px;">0xeABA510c0F7286B894A7C9229F41dC1ee0e8038E</span>
+    <!-- Itinerary Summary -->
+    <div class="card itinerary-summary">
+        <div class="card-title">📅 Trip Overview</div>
+        <div class="summary-content">
+            <div class="summary-item">
+                <span class="summary-label">🗓️ Departure:</span>
+                <span class="summary-value">May 7, 2026 from Washington (SEA)</span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">🇮🇸 Iceland Stay:</span>
+                <span class="summary-value">4 days (May 7 - May 11, 2026)</span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">🇲🇽 Mexico Stay:</span>
+                <span class="summary-value">7 days (May 11 - May 18, 2026)</span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">📍 Final Destination:</span>
+                <span class="summary-value">Cancún, Mexico ✈️</span>
             </div>
         </div>
     </div>
 
-    <div id="errorModal" class="modal hidden">
-        <div class="modal-content">
-            <div class="modal-icon">⚠️</div>
-            <h3>Payment Error</h3>
-            <p id="errorMessage"></p>
-            <button onclick="closeModal()" class="modal-btn">Try Again</button>
+    <!-- Passenger Details Card -->
+    <div class="card">
+        <div class="card-title">👩‍✈️ Traveler details</div>
+        <div class="info-row">
+            <div>
+                <span style="font-weight: 800; font-size: 1.35rem;" id="passengerNameDisplay">MAGNET CARTER</span> · <span id="passengerGenderDisplay">female</span><br>
+                <span style="font-size:0.8rem;" id="passengerDobDisplay">November 5, 1991</span>
+            </div>
+            <span id="editPassengerBtn" class="edit-link">✏️ Edit passenger</span>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 16px;">
+            <span class="baggage-badge">🎒 2 x 23kg checked + carry-on</span>
+            <span class="baggage-badge">🛡️ NovaComplete insurance</span>
+        </div>
+        <div style="margin-top: 20px; background: #fbfefd; padding: 18px; border-radius: 32px;">
+            <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 22px;">
+                <div><strong>📧 Email:</strong> <span id="contactEmailDisplay" class="inline-edit">magnet.carter@novajet.com</span></div>
+                <div><strong>📞 Phone:</strong> <span id="contactPhoneDisplay" class="inline-edit">+1 (425) 788-2234</span></div>
+            </div>
+            <div style="font-size:0.7rem; margin-top: 10px;">✏️ Click on any field to edit</div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Seat Map Card -->
+    <div class="card">
+        <div class="card-title">💺 Seat map</div>
+        <div class="seat-item"><span><strong>SEA → KEF</strong> (Washington to Iceland)</span><span class="seat-label" id="seat1Label">MAGNET CARTER - 14K (Window)</span></div>
+        <div class="seat-item"><span><strong>KEF → YYZ → CUN</strong> (Iceland to Mexico)</span><span class="seat-label">Premium seat + aisle (16B)</span></div>
+    </div>
+
+    <!-- SMS Alerts Card -->
+    <div class="card">
+        <div class="card-title">📡 Travel alerts</div>
+        <div class="sms-upsell">
+            <div>
+                <strong>✈️ Nova SMS Alerts™</strong><br>
+                <span style="font-size:0.8rem;">Gate changes, delays, cancellations — offline delivery</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 18px;">
+                <span style="font-weight:800; font-size:1.35rem;">$9.99</span>
+                <button id="toggleSmsBtn" class="btn-add">Add $9.99</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Card -->
+    <div class="card">
+        <div class="card-title">💳 Payment method</div>
+        
+        <!-- Payment Methods -->
+        <div class="accepted-cards" style="margin-bottom: 24px;">
+            <span class="card-badge">💳 Visa</span>
+            <span class="card-badge">💳 Mastercard</span>
+            <span class="card-badge">💳 Amex</span>
+            <span class="card-badge">💳 Discover</span>
+            <span class="card-badge">🍏 Apple Pay</span>
+            <span class="card-badge">🤖 Google Pay</span>
+            <span class="card-badge secure-badge">🔒 PCI Certified</span>
+        </div>
+        
+        <!-- Total Price -->
+        <div class="total-price">
+            <span>Total (taxes & fees)</span>
+            <span id="dynamicTotalPrice">$1675.00</span>
+        </div>
+        
+        <!-- Pay Button -->
+        <button class="book-btn" id="initiatePaymentBtn">🔒 Pay with Credit / Debit Card →</button>
+        
+        <!-- Instruction Note -->
+        <div class="payment-note">
+            💡 <strong>After clicking "Pay Now":</strong> You'll be redirected to MoonPay. Enter your email and click <strong>"Continue"</strong> to complete your payment.
+        </div>
+    </div>
+</div>
+
+<!-- Processing Modal -->
+<div id="processingModal" class="modal-overlay">
+    <div class="modal-card">
+        <div class="spinner"></div>
+        <h3 style="margin-top: 16px;">Creating secure payment...</h3>
+        <p>Please wait</p>
+        <button id="cancelProcessingBtn" class="close-modal-btn" style="margin-top: 20px;">Cancel</button>
+    </div>
+</div>
+
+<!-- Custom Edit Modal -->
+<div id="customEditModal" class="custom-edit-modal">
+    <div class="custom-edit-content">
+        <h3 id="editModalTitle">Edit field</h3>
+        <input type="text" id="editModalInput" class="edit-modal-input">
+        <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 20px;">
+            <button id="editModalCancel" class="edit-modal-cancel">Cancel</button>
+            <button id="editModalSave" class="edit-modal-save">Save</button>
+        </div>
+    </div>
+</div>
+
+<!-- Error Modal -->
+<div id="errorModal" class="modal-overlay">
+    <div class="modal-card">
+        <div class="modal-icon">⚠️</div>
+        <h3>Payment Error</h3>
+        <p id="errorMessage"></p>
+        <button id="closeErrorBtn" class="close-modal-btn">Try Again</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
-  </html>
+</html>
