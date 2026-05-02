@@ -5,312 +5,488 @@
 }
 
 body {
-    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+    background: linear-gradient(145deg, #eef3fc 0%, #e0eaf5 100%);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    padding: 28px 20px 52px;
+    color: #0a2b3c;
 }
 
-.container {
-    max-width: 500px;
-    width: 100%;
+.booking-container {
+    max-width: 960px;
     margin: 0 auto;
 }
 
-.logo-section {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.logo-icon {
-    font-size: 48px;
-    background: white;
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
+.airline-header {
+    margin-bottom: 28px;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
-
-.logo-section h1 {
-    color: white;
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 8px;
-}
-
-.tagline {
-    color: rgba(255,255,255,0.9);
-    font-size: 14px;
-}
-
-.payment-card {
-    background: white;
-    border-radius: 32px;
-    padding: 32px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-}
-
-.card-header {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.card-header h2 {
-    color: #1a1a2e;
-    font-size: 24px;
-    margin-bottom: 8px;
-}
-
-.card-header p {
-    color: #666;
-    font-size: 14px;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 8px;
-    color: #333;
-    font-size: 14px;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 14px 16px;
-    border: 2px solid #e1e5e9;
-    border-radius: 16px;
-    font-size: 16px;
-    font-family: inherit;
-    transition: all 0.2s;
-}
-
-.form-group input:focus {
-    outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-}
-
-.amount-input-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.currency {
-    position: absolute;
-    left: 16px;
-    font-size: 18px;
-    font-weight: 600;
-    color: #333;
-}
-
-.amount-input-wrapper input {
-    padding-left: 32px;
-}
-
-.flight-info {
-    background: linear-gradient(135deg, #f5f7fa 0%, #f0f2f5 100%);
-    border-radius: 20px;
-    padding: 16px;
-    margin: 20px 0;
-    text-align: center;
-}
-
-.flight-route {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
+align-items: center;
+    justify-content: space-between;
     flex-wrap: wrap;
-    font-weight: 600;
-    margin-bottom: 8px;
+    gap: 12px;
 }
 
-.arrow {
-    color: #667eea;
-    font-size: 18px;
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 14px;
 }
 
-.flight-dates {
-    font-size: 12px;
-    color: #666;
-}
-
-.pay-btn {
-    width: 100%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+.logo-symbol {
+    background: linear-gradient(135deg, #1e4a6e, #0f2d44);
     color: white;
-    border: none;
-    padding: 16px;
-    border-radius: 50px;
-    font-size: 18px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+    font-weight: 800;
+    font-size: 1.9rem;
+    width: 58px;
+    height: 58px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    border-radius: 35px;
+    box-shadow: 0 12px 22px rgba(0,0,0,0.12);
 }
 
-.pay-btn:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+.logo-text {
+    font-size: 1.85rem;
+    font-weight: 800;
+    letter-spacing: -0.8px;
+    background: linear-gradient(130deg, #1e5a6e, #0f3b48);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
 }
 
-.pay-btn:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
+.brand-tag {
+    font-size: 0.7rem;
+    font-weight: 500;
+    background: rgba(30,74,110,0.12);
+    padding: 4px 12px;
+    border-radius: 40px;
 }
 
-.btn-text {
+.translate-wrapper {
+    background: white;
+    padding: 5px 14px;
+    border-radius: 50px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+}
+
+#google_translate_element {
     display: inline-block;
 }
 
-.spinner {
-    width: 20px;
-    height: 20px;
-    border: 2px solid rgba(255,255,255,0.3);
-    border-radius: 50%;
-    border-top-color: white;
-    animation: spin 0.6s linear infinite;
+.goog-te-gadget {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-size: 0.8rem !important;
 }
 
-.spinner.hidden {
-    display: none;
+.goog-te-combo {
+    padding: 6px 14px;
+    border-radius: 40px;
+    border: 1px solid #caddf0;
+    background: white;
+    font-weight: 500;
+}
+
+.card {
+    background: rgba(255,255,255,0.97);
+    border-radius: 40px;
+    box-shadow: 0 22px 40px rgba(0, 0, 0, 0.06);
+    margin-bottom: 24px;
+    padding: 28px 32px;
+    border: 1px solid rgba(255,255,255,0.8);
+}
+
+.card-title {
+    font-size: 1.45rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-left: 5px solid #e8913a;
+    padding-left: 20px;
+    color: #1a4a5c;
+}
+
+.multi-city {
+    background: linear-gradient(112deg, #f9fcfd 0%, #ffffff 100%);
+    border-radius: 34px;
+    padding: 22px 26px;
+}
+
+.leg {
+    margin-bottom: 28px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid #e2edf5;
+}
+
+.leg:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.route-main {
+    font-weight: 800;
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.flight-time {
+    font-size: 0.85rem;
+    color: #6b8faa;
+    margin-top: 6px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.date-badge {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #2b7a62;
+    background: #e6f4ef;
+    padding: 4px 12px;
+    border-radius: 30px;
+}
+
+.connection-protection {
+    background: #eef2fa;
+    border-radius: 40px;
+    padding: 8px 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: inline-block;
+    margin-top: 12px;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #eaf0f6;
+    padding-bottom: 18px;
+    margin-bottom: 14px;
+}
+
+.baggage-badge {
+    background: #f0f6fa;
+    padding: 5px 12px;
+    border-radius: 30px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.seat-item {
+    background: #f5f9fe;
+    border-radius: 28px;
+    padding: 15px 20px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.seat-label {
+    font-weight: 700;
+    background: white;
+    padding: 6px 16px;
+    border-radius: 34px;
+    font-size: 0.8rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.sms-upsell {
+    background: #fef7ec;
+    border-left: 6px solid #e8913a;
+    border-radius: 30px;
+    padding: 22px;
+    margin: 22px 0 12px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.btn-add {
+    background: #1e4a6e;
+    color: white;
+    border: none;
+    padding: 11px 28px;
+    border-radius: 44px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-add.active {
+    background: #2a7a5e;
+}
+
+.accepted-cards {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid #e2edf5;
+    flex-wrap: wrap;
+}
+
+.card-badge {
+    background: #f8fafc;
+    padding: 6px 14px;
+    border-radius: 40px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #1a5a6e;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.secure-badge {
+    background: #e8f3e8;
+    color: #2a7a5e;
+}
+
+.total-price {
+    font-size: 2rem;
+    font-weight: 800;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-top: 2px dashed #dfeaf3;
+    padding-top: 24px;
+    margin-top: 12px;
+}
+
+.book-btn {
+    background: linear-gradient(100deg, #1e5a6e, #0f3b48);
+    width: 100%;
+    padding: 20px;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: white;
+    border: none;
+    border-radius: 60px;
+    margin-top: 34px;
+    cursor: pointer;
+    transition: 0.2s;
+    box-shadow: 0 10px 22px rgba(30,90,110,0.2);
+}
+
+.book-btn:active {
+    transform: scale(0.98);
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.78);
+    backdrop-filter: blur(7px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.2s;
+    z-index: 1001;
+}
+
+.modal-overlay.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal-card {
+    background: white;
+    max-width: 520px;
+    width: 90%;
+    border-radius: 52px;
+    padding: 36px 32px;
+    text-align: center;
+}
+
+.spinner {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 3px solid #e0eaf5;
+    border-radius: 50%;
+    border-top-color: #1e4a6e;
+    animation: spin 0.8s linear infinite;
 }
 
 @keyframes spin {
     to { transform: rotate(360deg); }
 }
 
-.payment-methods {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 24px;
-    padding-top: 20px;
-    border-top: 1px solid #eee;
-    flex-wrap: wrap;
+.close-modal-btn {
+    background: #eef3fc;
+    margin-top: 18px;
+    padding: 12px 28px;
+    border-radius: 44px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
 }
 
-.payment-methods span {
-    font-size: 12px;
-    padding: 4px 10px;
-    background: #f5f7fa;
+.link-detail {
+    color: #e8913a;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.edit-link {
+    color: #e8913a;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.inline-edit {
+    cursor: pointer;
+    background: #fcf9f5;
+    padding: 4px 12px;
     border-radius: 20px;
-    color: #555;
 }
 
-.secure-badge {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 12px;
-    color: #888;
+.inline-edit:hover {
+    background: #fef0e2;
 }
 
-.settlement-info {
-    background: rgba(255,255,255,0.15);
-    backdrop-filter: blur(10px);
-    border-radius: 50px;
-    padding: 12px 20px;
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    text-align: center;
-}
-
-.info-icon {
-    font-size: 20px;
-}
-
-.info-text {
-    color: white;
-    font-size: 12px;
-}
-
-.modal {
+.custom-edit-modal {
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.7);
-    backdrop-filter: blur(5px);
-    display: flex;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(4px);
+    z-index: 2000;
     align-items: center;
     justify-content: center;
-    z-index: 1000;
 }
 
-.modal.hidden {
-    display: none;
-}
-
-.modal-content {
+.custom-edit-content {
     background: white;
-    border-radius: 32px;
+    border-radius: 48px;
     padding: 32px;
-    text-align: center;
-    max-width: 350px;
+    max-width: 400px;
     width: 90%;
 }
 
+.edit-modal-input {
+    width: 100%;
+    padding: 14px;
+    margin: 20px 0;
+    border-radius: 30px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+.edit-modal-cancel {
+    padding: 10px 24px;
+    border-radius: 40px;
+    border: none;
+    background: #eef2f8;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.edit-modal-save {
+    padding: 10px 28px;
+    border-radius: 40px;
+    border: none;
+    background: #1e4a6e;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* Itinerary Summary Card */
+.itinerary-summary {
+    background: linear-gradient(135deg, #1e4a6e 0%, #0f2d44 100%);
+    color: white;
+}
+
+.itinerary-summary .card-title {
+    color: white;
+    border-left-color: #e8913a;
+}
+
+.summary-content {
+    padding: 10px 0;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.summary-item:last-child {
+    border-bottom: none;
+}
+
+.summary-label {
+    font-weight: 600;
+    opacity: 0.9;
+}
+
+.summary-value {
+    font-weight: 500;
+}
+
+/* Payment Note */
+.payment-note {
+    background: #e8f3e8;
+    border-radius: 16px;
+    padding: 12px 16px;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 0.75rem;
+    color: #2a7a5e;
+}
+
+.payment-note strong {
+    font-weight: 700;
+}
+
+/* Modal Icon */
 .modal-icon {
     font-size: 48px;
     margin-bottom: 16px;
 }
 
-.modal-content h3 {
-    margin-bottom: 12px;
-    color: #333;
-}
-
-.modal-content p {
-    color: #666;
-    margin-bottom: 20px;
-}
-
-.modal-btn {
-    background: #667eea;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 40px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-@media (max-width: 480px) {
-    .payment-card {
-        padding: 24px;
+/* Responsive */
+@media (max-width: 650px) {
+    .card {
+        padding: 20px;
     }
-    
-    .logo-icon {
-        width: 60px;
-        height: 60px;
-        font-size: 36px;
+    .route-main {
+        font-size: 1.1rem;
     }
-    
-    .flight-route {
-        font-size: 13px;
-    }
-    
-    .settlement-info {
+    .summary-item {
         flex-direction: column;
+        gap: 5px;
     }
-  }
+    .payment-note {
+        font-size: 0.7rem;
+    }
+    }
