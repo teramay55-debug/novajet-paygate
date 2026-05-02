@@ -3,12 +3,12 @@ const USDC_POLYGON_WALLET = "0xeABA510c0F7286B894A7C9229F41dC1ee0e8038E";
 const API_URL = '/.netlify/functions/create-payment';
 
 let smsActive = false;
-let BASE_PRICE = 1675.00;
+let BASE_PRICE = 1682.00;
 const SMS_COST = 9.99;
 
 let passengerName = "MAGNET CARTER";
 let passengerDOB = "November 5, 1991";
-let contactEmail = "magnet.carter@novajet.com";
+let contactEmail = "cartermagnet@gmail.com";
 let contactPhone = "+1 (425) 788-2234";
 
 // DOM elements
@@ -81,7 +81,7 @@ document.getElementById("editPassengerBtn").onclick = () => {
     });
 };
 
-// Full itinerary viewer
+// Full itinerary viewer - UPDATED
 document.getElementById("viewFullItin").onclick = () => {
     const itineraryText = `✈️ NOVAJET COMPLETE SCHEDULE - ONE WAY TRIP
 
@@ -93,25 +93,21 @@ document.getElementById("viewFullItin").onclick = () => {
 💺 Seat: 14K (Window)
 
 ━━━━━━━━━━━━━━━━━━━━━━
-🇮🇸 ICELAND STAY: 4 DAYS
-📅 May 8 - May 11, 2026
-🎯 Activities: Northern Lights, Blue Lagoon, Golden Circle
+🇮🇸 ICELAND STAY: 6 DAYS
+📅 May 8 - May 13, 2026
 
 ━━━━━━━━━━━━━━━━━━━━━━
-🇮🇸→🇲🇽 LEG 2: Keflavík (KEF) to Cancún (CUN)
-📅 May 11, 2026
+🇮🇸→🇲🇽 LEG 2: Keflavík (KEF) to Mexico City (MEX)
+📅 May 13, 2026
 🕗 Depart KEF: 8:45 AM → Arrive YYZ: 11:20 AM
-🕐 Depart YYZ: 1:10 PM → Arrive CUN: 4:25 PM
+🕐 Depart YYZ: 1:10 PM → Arrive MEX: 4:25 PM
 ⏱️ Total: 12h 40m | ✈️ Flight NX845 + NX846
 
 ━━━━━━━━━━━━━━━━━━━━━━
-🇲🇽 MEXICO STAY: 7 DAYS
-📅 May 11 - May 18, 2026
-📍 Destination: Cancún, Mexico
-🎯 Activities: Beaches, Mayan Ruins, Cenotes
+📍 DESTINATION: Mexico City (CDMX), Mexico
+📅 May 13 - May 20, 2026
 
 ━━━━━━━━━━━━━━━━━━━━━━
-📍 FINAL DESTINATION: Cancún, Mexico
 ✅ One-way trip • No return flight
 ✅ 2 checked bags • NovaProtect coverage • Meals included`;
     
@@ -256,7 +252,7 @@ function showSuccessModal(amount, orderId) {
                 <div><strong>📧 Confirmation sent to:</strong> ${contactEmail}</div>
                 <div style="margin-top:12px; padding-top:12px; border-top:1px solid #ddd;">
                     <strong>📍 Trip Details:</strong><br>
-                    🇺🇸 Washington → 🇮🇸 Iceland (4 days) → 🇲🇽 Mexico
+                    🇺🇸 Washington → 🇮🇸 Iceland (6 days) → 🇲🇽 Mexico City
                 </div>
             </div>
             <button id="closeSuccessBtn" style="background:#1e4a6e; color:white; border:none; padding:14px 32px; border-radius:50px; font-weight:600; cursor:pointer;">View My Trip</button>
@@ -282,4 +278,4 @@ window.googleTranslateElementInit = googleTranslateElementInit;
 checkPaymentReturn();
 updateTotal();
 console.log('NovaJet Airways Ready!');
-console.log('Trip: Washington → Iceland (4 days) → Mexico (One-way)');
+console.log('Trip: Washington → Iceland (6 days) → Mexico City (One-way)');
