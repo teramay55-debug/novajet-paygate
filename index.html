@@ -3,48 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>NovaJet Airways | Washington ✈ Iceland ✈ Mexico</title>
+    <title>Icelandair | Washington ✈ Iceland ✈ Mexico | Secure Booking</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
 <div class="booking-container">
-    <!-- Header -->
     <div class="airline-header">
         <div class="logo-area">
-            <div class="logo-symbol">✈️</div>
-            <div class="logo-text">NovaJet Airways</div>
-            <div class="brand-tag">✦ global explorer ✦</div>
+            <div class="logo-symbol">❄️</div>
+            <div class="logo-text">Icelandair</div>
+            <div class="brand-tag">✦ An Icelandic airline ✦</div>
         </div>
         <div class="translate-wrapper">
             <div id="google_translate_element"></div>
         </div>
     </div>
 
-    <!-- Flight Itinerary Card -->
+    <!-- Flight itinerary: Washington → Iceland → Mexico (Corrected Dates) -->
     <div class="card">
         <div class="card-title">🗺️ Arctic to Tropics | Washington ✈ Iceland ✈ Mexico</div>
         <div class="multi-city">
-            <!-- Leg 1: Washington to Iceland -->
             <div class="leg">
                 <div class="route-main">
-                    <span>🇺🇸 Washington (SEA) → Reykjavík (KEF) 🇮🇸</span>
-                    <span class="date-badge">May 7 – May 13, 2026</span>
+                    <span>🇺🇸 Seattle (SEA) → Reykjavík (KEF) 🇮🇸</span>
+                    <span class="date-badge">May 13 – May 18</span>
                 </div>
                 <div class="flight-time">
                     <span>✈️ Depart: 2:30 PM (SEA) | Arrive: 5:10 AM+1 (KEF)</span>
                     <span>⏱️ Flight time: 7h 40m</span>
                 </div>
-                <div class="connection-protection">✅ NovaProtect + Free itinerary changes</div>
+                <div class="connection-protection">✅ Icelandair Protect + Free itinerary changes</div>
             </div>
-            <!-- Leg 2: Iceland to Mexico -->
             <div class="leg">
                 <div class="route-main">
-                    <span>🇮🇸 Reykjavík (KEF) → Mexico City (MEX) 🇲🇽</span>
-                    <span class="date-badge">May 13, 2026</span>
+                    <span>🇮🇸 Reykjavík (KEF) → Cancún (CUN) 🇲🇽</span>
+                    <span class="date-badge">May 18 – May 25</span>
                 </div>
                 <div class="flight-time">
-                    <span>✈️ Depart: 8:45 AM (KEF) → 11:20 AM YYZ → 4:25 PM MEX</span>
+                    <span>✈️ Depart: 8:45 AM (KEF) → 11:20 AM YYZ → 4:25 PM CUN</span>
                     <span>⏱️ Total journey: 12h 40m (1 stop)</span>
                 </div>
                 <div class="connection-protection">✅ GlacierGuard coverage + premium meal</div>
@@ -55,139 +53,128 @@
         </div>
     </div>
 
-    <!-- Itinerary Summary -->
-    <div class="card itinerary-summary">
-        <div class="card-title">📅 Trip Overview</div>
-        <div class="summary-content">
-            <div class="summary-item">
-                <span class="summary-label">🗓️ Departure:</span>
-                <span class="summary-value">May 7, 2026 from Washington (SEA)</span>
-            </div>
-            <div class="summary-item">
-                <span class="summary-label">🇮🇸 Iceland Stay:</span>
-                <span class="summary-value">6 days (May 7 - May 13, 2026)</span>
-            </div>
-            <div class="summary-item">
-                <span class="summary-label">🇲🇽 Destination:</span>
-                <span class="summary-value">Mexico City (CDMX), Mexico</span>
-            </div>
-            <div class="summary-item">
-                <span class="summary-label">📅 Travel Dates:</span>
-                <span class="summary-value">May 13, 2026</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Passenger Details Card -->
+    <!-- Passenger: MAGNET CARTER (Female) -->
     <div class="card">
         <div class="card-title">👩‍✈️ Traveler details</div>
         <div class="info-row">
             <div>
                 <span style="font-weight: 800; font-size: 1.35rem;" id="passengerNameDisplay">MAGNET CARTER</span> · <span id="passengerGenderDisplay">female</span><br>
-                <span style="font-size:0.8rem;" id="passengerDobDisplay"June 15 1987"</span>
+                <span style="font-size:0.8rem;" id="passengerDobDisplay">November 5, 1991</span>
             </div>
             <span id="editPassengerBtn" class="edit-link">✏️ Edit passenger</span>
         </div>
         <div style="display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 16px;">
             <span class="baggage-badge">🎒 2 x 23kg checked + carry-on</span>
-            <span class="baggage-badge">🛡️ NovaComplete insurance</span>
+            <span class="baggage-badge">🛡️ Icelandair Complete insurance</span>
         </div>
         <div style="margin-top: 20px; background: #fbfefd; padding: 18px; border-radius: 32px;">
             <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 22px;">
-                <div><strong>📧 Email:</strong> <span id="contactEmailDisplay" class="inline-edit">cartermagnet@gmail.com</span></div>
+                <div><strong>📧 Email:</strong> <span id="contactEmailDisplay" class="inline-edit">magnet.carter@icelandair.com</span></div>
                 <div><strong>📞 Phone:</strong> <span id="contactPhoneDisplay" class="inline-edit">+1 (425) 788-2234</span></div>
             </div>
             <div style="font-size:0.7rem; margin-top: 10px;">✏️ Click on any field to edit</div>
         </div>
     </div>
 
-    <!-- Seat Map Card -->
+    <!-- Seat assignments -->
     <div class="card">
         <div class="card-title">💺 Seat map</div>
         <div class="seat-item"><span><strong>SEA → KEF</strong> (Washington to Iceland)</span><span class="seat-label" id="seat1Label">MAGNET CARTER - 14K (Window)</span></div>
-        <div class="seat-item"><span><strong>KEF → YYZ → MEX</strong> (Iceland to Mexico)</span><span class="seat-label">Premium seat + aisle (16B)</span></div>
+        <div class="seat-item"><span><strong>KEF → YYZ → CUN</strong> (Iceland to Mexico)</span><span class="seat-label">Premium seat + aisle (16B)</span></div>
+        <div class="seat-item"><span><strong>CUN → KEF</strong> (Return: Mexico → Iceland)</span><span class="seat-label">Window 22A</span></div>
+        <div class="seat-item"><span><strong>KEF → SEA</strong> (Return: Iceland → Washington)</span><span class="seat-label">Standard 10C</span></div>
     </div>
 
-    <!-- SMS Alerts Card -->
+    <!-- SMS alerts -->
     <div class="card">
         <div class="card-title">📡 Travel alerts</div>
         <div class="sms-upsell">
-            <div>
-                <strong>✈️ Nova SMS Alerts™</strong><br>
-                <span style="font-size:0.8rem;">Gate changes, delays, cancellations — offline delivery</span>
-            </div>
-            <div style="display: flex; align-items: center; gap: 18px;">
-                <span style="font-weight:800; font-size:1.35rem;">$9.99</span>
-                <button id="toggleSmsBtn" class="btn-add">Add $9.99</button>
-            </div>
+            <div><strong>✈️ Icelandair SMS Alerts™</strong><br><span style="font-size:0.8rem;">Gate changes, delays, cancellations — offline delivery</span></div>
+            <div style="display: flex; align-items: center; gap: 18px;"><span style="font-weight:800; font-size:1.35rem;">$9.99</span><button id="toggleSmsBtn" class="btn-add">Add $9.99</button></div>
         </div>
     </div>
 
-    <!-- Payment Card -->
+    <!-- Payment section -->
     <div class="card">
         <div class="card-title">💳 Payment method</div>
-        
-        <!-- Payment Methods -->
-        <div class="accepted-cards" style="margin-bottom: 24px;">
+        <div class="accepted-cards" style="margin-bottom: 20px;">
             <span class="card-badge">💳 Visa</span>
             <span class="card-badge">💳 Mastercard</span>
             <span class="card-badge">💳 Amex</span>
             <span class="card-badge">💳 Discover</span>
-            <span class="card-badge">🍏 Apple Pay</span>
-            <span class="card-badge">🤖 Google Pay</span>
+            <span class="card-badge">🇲🇽 Carnet</span>
             <span class="card-badge secure-badge">🔒 PCI Certified</span>
         </div>
-        
-        <!-- Total Price -->
         <div class="total-price">
             <span>Total (taxes & fees)</span>
-            <span id="dynamicTotalPrice">$1682.00</span>
+            <span id="dynamicTotalPrice">$1675.00</span>
         </div>
-        
-        <!-- Pay Button -->
-        <button class="book-btn" id="initiatePaymentBtn">🔒 Pay with Credit / Debit Card →</button>
-        
-        <!-- Instruction Note -->
-        <div class="payment-note">
-            💡 <strong>After clicking "Pay Now":</strong> You'll be redirected to MoonPay. Enter your email and click <strong>"Continue"</strong> to complete your payment.
+        <button class="book-btn" id="initiatePaymentBtn">🔒 Proceed to payment →</button>
+        <div style="font-size:0.7rem; text-align:center; margin-top: 14px;">🔒 Secure transaction • All major cards accepted including Mexico</div>
+    </div>
+</div>
+
+<!-- Payment method selection modal -->
+<div id="methodSelectModal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 400px;">
+        <h3 style="margin-bottom: 20px;">Select payment method</h3>
+        <div style="display: flex; flex-direction: column; gap: 15px;">
+            <button id="selectCardMethod" class="pay-option" style="justify-content: center; background: #1e4a6e; color: white;">💳 Credit / Debit Card</button>
+            <button id="selectCryptoMethod" class="pay-option" style="justify-content: center; background: #f2f6fc;">₿ Cryptocurrency (BTC, ETH, USDT)</button>
         </div>
-        
-        <!-- Bank Warning Note -->
-        <div class="bank-warning">
-            ⚠️ <strong>Important:</strong> If your card is declined, call your bank to authorize the transaction or try a different card.
+        <button id="closeMethodModal" class="close-modal-btn" style="margin-top: 20px;">Cancel</button>
+    </div>
+</div>
+
+<!-- Card Payment Modal -->
+<div id="cardPaymentModal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 450px;">
+        <h3 style="margin-bottom: 20px;">💳 Enter card details</h3>
+        <div id="stripe-card-element" style="border: 1px solid #ddd; padding: 12px; border-radius: 28px; background: white;"></div>
+        <div id="card-errors" style="color: red; font-size: 0.8rem; margin-top: 8px;"></div>
+        <div style="margin-top: 20px; display: flex; gap: 12px; justify-content: flex-end;">
+            <button id="cancelCardBtn" class="close-modal-btn">Cancel</button>
+            <button id="submitCardPayment" class="book-btn" style="margin-top: 0; padding: 12px 28px;">Pay $1675.00</button>
         </div>
     </div>
 </div>
 
-<!-- Processing Modal -->
+<!-- Crypto payment modal -->
+<div id="cryptoPaymentModal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 450px;">
+        <h3 style="margin-bottom: 20px;">₿ Cryptocurrency payment</h3>
+        <p>Send the exact amount to the address below:</p>
+        <div style="background: #f4f9fe; border-radius: 28px; padding: 16px; margin: 15px 0; word-break: break-all; font-family: monospace;">
+            <strong>BTC:</strong> 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa<br>
+            <strong>ETH:</strong> 0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb0<br>
+            <strong>USDT (TRC20):</strong> TQmdqVp7J7N5dWq5Q7jMpLzXcA9fFgHjK
+        </div>
+        <p>After sending, click "I have paid" to confirm your booking.</p>
+        <div style="margin-top: 20px; display: flex; gap: 12px; justify-content: flex-end;">
+            <button id="closeCryptoBtn" class="close-modal-btn">Cancel</button>
+            <button id="confirmCryptoPayment" class="book-btn" style="margin-top: 0; padding: 12px 28px;">✓ I have paid</button>
+        </div>
+    </div>
+</div>
+
+<!-- Processing modals -->
 <div id="processingModal" class="modal-overlay">
     <div class="modal-card">
         <div class="spinner"></div>
-        <h3 style="margin-top: 16px;">Creating secure payment...</h3>
+        <h3 style="margin-top: 16px;">Processing payment...</h3>
         <p>Please wait</p>
-        <button id="cancelProcessingBtn" class="close-modal-btn" style="margin-top: 20px;">Cancel</button>
     </div>
 </div>
 
-<!-- Custom Edit Modal -->
-<div id="customEditModal" class="custom-edit-modal">
-    <div class="custom-edit-content">
+<!-- Custom edit modal -->
+<div id="customEditModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 2000; align-items: center; justify-content: center;">
+    <div style="background: white; border-radius: 48px; padding: 32px; max-width: 400px; width: 90%;">
         <h3 id="editModalTitle">Edit field</h3>
-        <input type="text" id="editModalInput" class="edit-modal-input">
-        <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 20px;">
-            <button id="editModalCancel" class="edit-modal-cancel">Cancel</button>
-            <button id="editModalSave" class="edit-modal-save">Save</button>
+        <input type="text" id="editModalInput" style="width: 100%; padding: 14px; margin: 20px 0; border-radius: 30px; border: 1px solid #ddd; font-size: 1rem;">
+        <div style="display: flex; gap: 12px; justify-content: flex-end;">
+            <button id="editModalCancel" style="padding: 10px 24px; border-radius: 40px; border: none; background: #eef2f8; cursor: pointer;">Cancel</button>
+            <button id="editModalSave" style="padding: 10px 28px; border-radius: 40px; border: none; background: #1e4a6e; color: white; cursor: pointer;">Save</button>
         </div>
-    </div>
-</div>
-
-<!-- Error Modal -->
-<div id="errorModal" class="modal-overlay">
-    <div class="modal-card">
-        <div class="modal-icon">⚠️</div>
-        <h3>Payment Error</h3>
-        <p id="errorMessage"></p>
-        <button id="closeErrorBtn" class="close-modal-btn">Try Again</button>
     </div>
 </div>
 
